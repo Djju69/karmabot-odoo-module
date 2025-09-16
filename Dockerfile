@@ -7,6 +7,10 @@ COPY addons/ /mnt/extra-addons/
 RUN chown -R odoo:odoo /mnt/extra-addons && \
     chmod -R 755 /mnt/extra-addons
 
+# Проверить что модуль скопировался
+RUN ls -la /mnt/extra-addons/ && \
+    ls -la /mnt/extra-addons/karmabot_webapp/
+
 # Создать конфигурационный файл
 RUN echo '[options]' > /etc/odoo/odoo.conf && \
     echo 'addons_path = /usr/lib/python3/dist-packages/odoo/addons,/var/lib/odoo/addons/17.0,/mnt/extra-addons' >> /etc/odoo/odoo.conf && \
