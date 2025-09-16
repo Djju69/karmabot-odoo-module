@@ -2,62 +2,24 @@
 {
     'name': 'KarmaBot WebApp',
     'version': '1.0.0',
-    'summary': 'Web application interfaces and SSO for KarmaBot',
+    'category': 'Tools',
+    'summary': 'KarmaBot WebApp Module',
     'description': """
         KarmaBot WebApp Module
-        ======================
+        =====================
         
-        This module provides web application interfaces and SSO functionality:
-        - SSO authentication and token management
-        - WebApp landing page with role-based routing
-        - Admin dashboard with live analytics
-        - Super admin control panel
-        - Mobile-responsive interfaces
-        
-        Features:
-        - JWT-based SSO authentication
-        - Role-based access control
-        - Live dashboard with real-time updates
-        - Mobile-optimized interfaces
-        - Integration with Telegram bot
-        - Analytics and reporting tools
+        Простой модуль для интеграции с KarmaBot
     """,
     'author': 'KarmaBot Team',
-    'website': 'https://karmabot.example.com',
-    'category': 'Marketing/Loyalty',
-    'depends': [
-        'base',
-        'website',
-        'mail',
-        'portal',
-    ],
+    'website': 'https://karmabot.com',
+    'depends': ['base', 'web'],
     'data': [
-        # Security
         'security/ir.model.access.csv',
-        'security/ir.rule.csv',
-        
-        # Data
-        'data/webapp_config_data.xml',
-        
-        # Views
         'views/webapp_views.xml',
-        'views/user_cabinet_templates.xml',
-        'views/registration_templates.xml',
-        'views/additional_templates.xml',
-        'views/role_specific_templates.xml',
     ],
-    'demo': [
-        'demo/demo_data.xml',
-    ],
+    'demo': [],
     'installable': True,
-    'application': False,
     'auto_install': False,
+    'application': False,
     'license': 'LGPL-3',
-    'images': [],
-    'assets': {
-        'web.assets_frontend': [
-            'karmabot_webapp/static/src/css/webapp.css',
-            'karmabot_webapp/static/src/js/webapp.js',
-        ],
-    },
 }

@@ -1,187 +1,117 @@
 # -*- coding: utf-8 -*-
 
 from odoo import models, fields, api, _
-from odoo.exceptions import ValidationError, UserError
+from odoo.exceptions import ValidationError
 import logging
-import uuid
-from datetime import datetime, timedelta
 
 _logger = logging.getLogger(__name__)
 
 
 class KarmaBotWebAppSession(models.Model):
-    """WebApp Session Model - Track user sessions"""
-    
     _name = 'karmabot.webapp_session'
     _description = 'KarmaBot WebApp Session'
     _order = 'create_date desc'
     
-    # Basic Information
-    session_id = fields.Char(
-        string='Session ID',
-        required=True,
-        index=True,
-        default=lambda self: str(uuid.uuid4()),
-        help="Unique session identifier"
-    )
-    
-    user_id = fields.Many2one(
-        'karmabot.user',
-        string='User',
-        required=True,
-        ondelete='cascade',
-        help="User associated with this session"
-    )
-    
-    sso_token_id = fields.Many2one(
-        'karmabot.sso_token',
-        string='SSO Token',
-        ondelete='cascade',
-        help="SSO token used for this session"
-    )
-    
-    # Session Details
+    # Основные поля
+    user_id = fields.Many2one('karmabot.user', string='User', required=True)
     session_type = fields.Selection([
         ('user_cabinet', 'User Cabinet'),
         ('partner_cabinet', 'Partner Cabinet'),
-        ('admin_dashboard', 'Admin Dashboard'),
-        ('super_admin', 'Super Admin'),
+        ('admin_cabinet', 'Admin Cabinet'),
+        ('super_admin_cabinet', 'Super Admin Cabinet')
     ], string='Session Type', required=True)
     
-    # Status and Timing
-    is_active = fields.Boolean(
-        string='Active',
-        default=True,
-        help="Whether the session is active"
-    )
+    # Информация о сессии
+    ip_address = fields.Char(string='IP Address')
+    user_agent = fields.Char(string='User Agent')
+    is_active = fields.Boolean(string='Active', default=True)
     
-    started_at = fields.Datetime(
-        string='Started At',
-        default=fields.Datetime.now,
-        help="When the session started"
-    )
+    # Даты
+    start_time = fields.Datetime(string='Start Time', default=fields.Datetime.now)
+    last_activity = fields.Datetime(string='Last Activity', default=fields.Datetime.now)
+    end_time = fields.Datetime(string='End Time')
     
-    last_activity = fields.Datetime(
-        string='Last Activity',
-        default=fields.Datetime.now,
-        help="Last activity in the session"
-    )
-    
-    ended_at = fields.Datetime(
-        string='Ended At',
-        help="When the session ended"
-    )
-    
-    # Technical Details
-    ip_address = fields.Char(
-        string='IP Address',
-        help="IP address of the session"
-    )
-    
-    user_agent = fields.Char(
-        string='User Agent',
-        help="User agent of the session"
-    )
-    
-    browser = fields.Char(
-        string='Browser',
-        help="Browser name"
-    )
-    
-    os = fields.Char(
-        string='Operating System',
-        help="Operating system"
-    )
-    
-    device_type = fields.Selection([
-        ('desktop', 'Desktop'),
-        ('mobile', 'Mobile'),
-        ('tablet', 'Tablet'),
-    ], string='Device Type', help="Type of device")
-    
-    # Computed Fields
-    duration_minutes = fields.Integer(
-        string='Duration (minutes)',
-        compute='_compute_duration',
-        help="Session duration in minutes"
-    )
-    
-    @api.depends('started_at', 'ended_at', 'last_activity')
-    def _compute_duration(self):
-        for record in self:
-            if record.ended_at:
-                duration = record.ended_at - record.started_at
-            else:
-                duration = record.last_activity - record.started_at
-            
-            record.duration_minutes = int(duration.total_seconds() / 60)
-    
-    # Methods
-    def update_activity(self):
-        """Update last activity timestamp"""
-        self.ensure_one()
-        self.write({'last_activity': fields.Datetime.now()})
-    
-    def end_session(self):
-        """End the session"""
-        self.ensure_one()
-        self.write({
-            'is_active': False,
-            'ended_at': fields.Datetime.now()
-        })
-        _logger.info(f"Session {self.session_id} ended")
+    # Дополнительные данные
+    session_data = fields.Text(string='Session Data', help='JSON data for session')
     
     @api.model
-    def create_session(self, user_id, session_type, sso_token_id=None, **kwargs):
-        """Create new WebApp session"""
-        user = self.env['karmabot.user'].browse(user_id)
-        if not user.exists():
-            raise UserError(_("User not found"))
+    def create_session(self, user_id, session_type, ip_address=None, user_agent=None, session_data=None):
+        """Создать новую сессию WebApp"""
+        # Деактивировать предыдущие сессии пользователя
+        self.search([('user_id', '=', user_id), ('is_active', '=', True)]).write({
+            'is_active': False,
+            'end_time': fields.Datetime.now()
+        })
         
-        # End any existing active sessions for this user
-        existing_sessions = self.search([
-            ('user_id', '=', user_id),
-            ('is_active', '=', True)
-        ])
-        existing_sessions.end_session()
-        
-        # Create new session
-        session_data = {
+        # Создать новую сессию
+        session = self.create({
             'user_id': user_id,
             'session_type': session_type,
-            'sso_token_id': sso_token_id,
-            'is_active': True,
-            'ip_address': kwargs.get('ip_address'),
-            'user_agent': kwargs.get('user_agent'),
-            'browser': kwargs.get('browser'),
-            'os': kwargs.get('os'),
-            'device_type': kwargs.get('device_type'),
-        }
+            'ip_address': ip_address,
+            'user_agent': user_agent,
+            'session_data': session_data,
+            'is_active': True
+        })
         
-        session = self.create(session_data)
-        
-        _logger.info(f"New session created for user {user.name}: {session_type}")
+        _logger.info(f"Created new WebApp session for user {user_id}, type: {session_type}")
         return session
+    
+    def update_activity(self):
+        """Обновить активность сессии"""
+        self.last_activity = fields.Datetime.now()
+    
+    def end_session(self):
+        """Завершить сессию"""
+        self.is_active = False
+        self.end_time = fields.Datetime.now()
+        _logger.info(f"Ended WebApp session {self.id}")
     
     @api.model
     def cleanup_inactive_sessions(self, hours=24):
-        """Clean up inactive sessions"""
-        cutoff_time = fields.Datetime.now() - timedelta(hours=hours)
+        """Очистить неактивные сессии старше указанного количества часов"""
+        cutoff_time = fields.Datetime.now() - fields.timedelta(hours=hours)
         
         inactive_sessions = self.search([
             ('last_activity', '<', cutoff_time),
             ('is_active', '=', True)
         ])
         
-        inactive_sessions.end_session()
-        
-        _logger.info(f"Ended {len(inactive_sessions)} inactive sessions")
-        return len(inactive_sessions)
+        if inactive_sessions:
+            inactive_sessions.write({
+                'is_active': False,
+                'end_time': fields.Datetime.now()
+            })
+            _logger.info(f"Cleaned up {len(inactive_sessions)} inactive WebApp sessions")
     
-    def name_get(self):
-        """Custom name display"""
-        result = []
-        for record in self:
-            name = f"Session {record.session_id[:8]} ({record.user_id.name})"
-            result.append((record.id, name))
-        return result
+    @api.model
+    def get_active_sessions(self, user_id=None):
+        """Получить активные сессии"""
+        domain = [('is_active', '=', True)]
+        if user_id:
+            domain.append(('user_id', '=', user_id))
+        
+        return self.search(domain)
+    
+    def get_session_duration(self):
+        """Получить продолжительность сессии"""
+        if not self.is_active:
+            end_time = self.end_time or fields.Datetime.now()
+            duration = end_time - self.start_time
+        else:
+            duration = fields.Datetime.now() - self.start_time
+        
+        return duration
+    
+    def get_session_info(self):
+        """Получить информацию о сессии"""
+        return {
+            'id': self.id,
+            'user_id': self.user_id.id,
+            'user_name': self.user_id.name,
+            'session_type': self.session_type,
+            'start_time': self.start_time,
+            'last_activity': self.last_activity,
+            'duration': self.get_session_duration(),
+            'is_active': self.is_active,
+            'ip_address': self.ip_address
+        }
