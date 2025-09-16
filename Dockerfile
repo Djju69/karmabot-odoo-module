@@ -3,10 +3,6 @@
 # Копировать модуль
 COPY addons/ /mnt/extra-addons/
 
-# Установить правильные права
-RUN chown -R odoo:odoo /mnt/extra-addons && \
-    chmod -R 755 /mnt/extra-addons
-
 # Проверить что модуль скопировался
 RUN ls -la /mnt/extra-addons/ && \
     ls -la /mnt/extra-addons/karmabot_webapp/
