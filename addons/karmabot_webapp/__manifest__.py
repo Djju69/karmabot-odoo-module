@@ -26,9 +26,7 @@
     'website': 'https://karmabot.example.com',
     'category': 'Marketing/Loyalty',
     'depends': [
-        'karmabot_core',
-        'karmabot_cards',
-        'karmabot_loyalty',
+        'base',
         'website',
         'mail',
         'portal',
@@ -55,7 +53,7 @@
     'application': False,
     'auto_install': False,
     'license': 'LGPL-3',
-    'images': ['static/description/banner.png'],
+    'images': [],
     'assets': {
         'web.assets_frontend': [
             'karmabot_webapp/static/src/css/webapp.css',

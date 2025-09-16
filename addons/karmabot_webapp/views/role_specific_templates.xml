@@ -887,4 +887,82 @@
             </div>
         </t>
     </template>
+    
+    <!-- === ДОПОЛНИТЕЛЬНЫЕ ШАБЛОНЫ ДЛЯ АДМИНОВ === -->
+    
+    <!-- Шаблон для дашборда админа -->
+    <template id="admin_dashboard" name="KarmaBot Admin Dashboard">
+        <t t-call="web.layout">
+            <t t-set="title">Админ панель - KarmaBot</t>
+            
+            <div class="karmabot-container">
+                <div class="karmabot-header">
+                    <h1>👑 Админ панель</h1>
+                    <p>Управление системой</p>
+                </div>
+                
+                <div class="karmabot-menu">
+                    <div class="menu-card">
+                        <div class="menu-icon">👥</div>
+                        <div class="menu-title">Управление пользователями</div>
+                        <div class="menu-desc">Пользователи и партнеры</div>
+                    </div>
+                    
+                    <div class="menu-card">
+                        <div class="menu-icon">📊</div>
+                        <div class="menu-title">Системная аналитика</div>
+                        <div class="menu-desc">Отчеты и статистика</div>
+                    </div>
+                    
+                    <div class="menu-card">
+                        <div class="menu-icon">🔔</div>
+                        <div class="menu-title">Уведомления</div>
+                        <div class="menu-desc">Системные уведомления</div>
+                    </div>
+                </div>
+                
+                <div class="karmabot-footer">
+                    <button class="btn-back" onclick="goBack()">
+                        ← Назад в кабинет
+                    </button>
+                </div>
+            </div>
+        </t>
+    </template>
+    
+    <!-- Шаблон для SSO логина -->
+    <template id="sso_login" name="KarmaBot SSO Login">
+        <t t-call="web.layout">
+            <t t-set="title">Вход в систему - KarmaBot</t>
+            
+            <div class="karmabot-container">
+                <div class="karmabot-header">
+                    <h1>🔐 Вход в систему</h1>
+                    <p>Авторизация через Telegram</p>
+                </div>
+                
+                <div class="karmabot-menu">
+                    <div class="menu-card">
+                        <div class="menu-icon">📱</div>
+                        <div class="menu-title">Войти через Telegram</div>
+                        <div class="menu-desc">Быстрая авторизация</div>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+    
+    <!-- Шаблон для SSO коллбека -->
+    <template id="sso_callback" name="KarmaBot SSO Callback">
+        <t t-call="web.layout">
+            <t t-set="title">Авторизация - KarmaBot</t>
+            
+            <div class="karmabot-container">
+                <div class="karmabot-header">
+                    <h1>✅ Авторизация успешна</h1>
+                    <p>Перенаправление в кабинет</p>
+                </div>
+            </div>
+        </t>
+    </template>
 </odoo>
