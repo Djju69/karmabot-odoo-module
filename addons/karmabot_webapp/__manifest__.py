@@ -12,10 +12,9 @@
     """,
     'author': 'KarmaBot Team',
     'website': 'https://karmabot.com',
-    'depends': ['base', 'web', 'website'],
+    'depends': ['base', 'web'],
     'data': [
         'security/ir.model.access.csv',
-        'views/simple_views.xml',
         'views/webapp_views.xml',
     ],
     'assets': {
