@@ -1,7 +1,7 @@
 FROM odoo:17.0
 
 # Копировать модуль
-COPY addons/ /mnt/extra-addons/
+COPY odoo-addons/ /mnt/extra-addons/
 
 # Проверить что модуль скопировался
 RUN ls -la /mnt/extra-addons/ && \
@@ -13,4 +13,4 @@ RUN echo '[options]' > /etc/odoo/odoo.conf && \
     echo 'data_dir = /var/lib/odoo' >> /etc/odoo/odoo.conf
 
 # Запустить Odoo
-CMD ["python3", "/usr/bin/odoo"]
+CMD ["odoo"]
