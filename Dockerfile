@@ -1,7 +1,7 @@
 FROM odoo:17.0
 
 # Копировать модуль
-COPY odoo-addons/ /mnt/extra-addons/
+COPY addons/ /mnt/extra-addons/
 
 # Проверить что модуль скопировался
 RUN ls -la /mnt/extra-addons/ && \
