@@ -15,6 +15,7 @@
     'depends': ['base', 'web', 'website'],
     'data': [
         'security/ir.model.access.csv',
+        'views/simple_views.xml',
         'views/webapp_views.xml',
     ],
     'assets': {
