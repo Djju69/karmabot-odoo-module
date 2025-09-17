@@ -1,3 +1,3 @@
-from . import karmabot_user
-from . import sso_token
-from . import webapp_session
+# -*- coding: utf-8 -*-
+
+# Models will be imported here when needed

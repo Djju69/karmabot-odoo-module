@@ -2,30 +2,29 @@
 {
     'name': 'KarmaBot WebApp',
     'version': '1.0.0',
-    'category': 'Tools',
-    'summary': 'KarmaBot WebApp Module',
+    'summary': 'Web application interfaces for KarmaBot',
     'description': """
         KarmaBot WebApp Module
-        =====================
+        ======================
         
-        Простой модуль для интеграции с KarmaBot
+        This module provides web application interfaces:
+        - WebApp landing page
+        - Basic routing functionality
+        - Integration endpoints
     """,
     'author': 'KarmaBot Team',
-    'website': 'https://karmabot.com',
-    'depends': ['base', 'web'],
+    'website': 'https://karmabot.example.com',
+    'category': 'Website',
+    'depends': [
+        'base',
+        'web',
+    ],
     'data': [
-        'security/ir.model.access.csv',
         'views/webapp_views.xml',
     ],
-    'assets': {
-        'web.assets_backend': [
-            'karmabot_webapp/static/src/css/webapp.css',
-            'karmabot_webapp/static/src/js/webapp.js',
-        ],
-    },
     'demo': [],
     'installable': True,
+    'application': True,
     'auto_install': False,
-    'application': False,
     'license': 'LGPL-3',
 }
