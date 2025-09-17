@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+from . import simple_controller
 from . import webapp_controller
 from . import admin_controller
 from . import super_admin_controller

@@ -2,7 +2,7 @@
 <odoo>
     <!-- Основные представления для WebApp -->
     <template id="webapp_landing" name="KarmaBot WebApp Landing">
-        <t t-call="web.layout">
+        <t t-call="web.frontend_layout">
             <t t-set="title">KarmaBot WebApp</t>
             
             <div class="karmabot-container">
@@ -30,7 +30,7 @@
 
     <!-- Форма регистрации -->
     <template id="registration_form" name="KarmaBot Registration Form">
-        <t t-call="web.layout">
+        <t t-call="web.frontend_layout">
             <t t-set="title">Регистрация - KarmaBot</t>
             
             <div class="karmabot-container">
@@ -70,7 +70,7 @@
 
     <!-- Личный кабинет пользователя -->
     <template id="user_cabinet" name="KarmaBot User Cabinet">
-        <t t-call="web.layout">
+        <t t-call="web.frontend_layout">
             <t t-set="title">Личный кабинет - KarmaBot</t>
             
             <div class="karmabot-container">
@@ -130,7 +130,7 @@
 
     <!-- Страница карт пользователя -->
     <template id="user_cards" name="KarmaBot User Cards">
-        <t t-call="web.layout">
+        <t t-call="web.frontend_layout">
             <t t-set="title">Мои карты - KarmaBot</t>
             
             <div class="karmabot-container">
@@ -162,7 +162,7 @@
 
     <!-- Страница истории -->
     <template id="user_history" name="KarmaBot User History">
-        <t t-call="web.layout">
+        <t t-call="web.frontend_layout">
             <t t-set="title">История операций - KarmaBot</t>
             
             <div class="karmabot-container">
@@ -195,7 +195,7 @@
 
     <!-- Страница бонусов -->
     <template id="user_bonuses" name="KarmaBot User Bonuses">
-        <t t-call="web.layout">
+        <t t-call="web.frontend_layout">
             <t t-set="title">Бонусы и скидки - KarmaBot</t>
             
             <div class="karmabot-container">
@@ -226,7 +226,7 @@
 
     <!-- Страница настроек -->
     <template id="user_settings" name="KarmaBot User Settings">
-        <t t-call="web.layout">
+        <t t-call="web.frontend_layout">
             <t t-set="title">Настройки - KarmaBot</t>
             
             <div class="karmabot-container">
@@ -264,7 +264,7 @@
 
     <!-- Страница поддержки -->
     <template id="user_support" name="KarmaBot User Support">
-        <t t-call="web.layout">
+        <t t-call="web.frontend_layout">
             <t t-set="title">Поддержка - KarmaBot</t>
             
             <div class="karmabot-container">
@@ -289,7 +289,7 @@
 
     <!-- Страница статистики -->
     <template id="user_statistics" name="KarmaBot User Statistics">
-        <t t-call="web.layout">
+        <t t-call="web.frontend_layout">
             <t t-set="title">Статистика - KarmaBot</t>
             
             <div class="karmabot-container">
@@ -329,7 +329,7 @@
 
     <!-- Страница баллов -->
     <template id="user_points" name="KarmaBot User Points">
-        <t t-call="web.layout">
+        <t t-call="web.frontend_layout">
             <t t-set="title">Мои баллы - KarmaBot</t>
             
             <div class="karmabot-container">
@@ -355,7 +355,7 @@
 
     <!-- Страница рефералов -->
     <template id="user_referrals" name="KarmaBot User Referrals">
-        <t t-call="web.layout">
+        <t t-call="web.frontend_layout">
             <t t-set="title">Рефералы - KarmaBot</t>
             
             <div class="karmabot-container">
@@ -382,7 +382,7 @@
 
     <!-- Страница входа -->
     <template id="webapp_login" name="KarmaBot WebApp Login">
-        <t t-call="web.layout">
+        <t t-call="web.frontend_layout">
             <t t-set="title">Вход - KarmaBot</t>
             
             <div class="karmabot-container">

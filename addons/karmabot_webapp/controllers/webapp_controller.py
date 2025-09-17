@@ -11,7 +11,7 @@ _logger = logging.getLogger(__name__)
 class KarmaBotWebAppController(http.Controller):
     """Main WebApp Controller - Landing page and routing"""
     
-    @http.route('/karmabot/webapp', type='http', auth='public', website=True)
+    @http.route('/karmabot/webapp', type='http', auth='public')
     def karmabot_webapp(self, user_id=None, **kw):
         """Красивая форма регистрации и личного кабинета"""
         try:
@@ -43,7 +43,7 @@ class KarmaBotWebAppController(http.Controller):
                 'error': 'Произошла ошибка. Попробуйте позже.'
             })
     
-    @http.route('/webapp', type='http', auth='public', website=True)
+    @http.route('/webapp', type='http', auth='public')
     def webapp_landing(self, sso=None, **kw):
         """WebApp landing page with role-based routing"""
         try:
@@ -329,7 +329,7 @@ class KarmaBotWebAppController(http.Controller):
             _logger.error(f"Error in register_user: {e}")
             return {'success': False, 'error': 'Произошла ошибка при регистрации'}
     
-    @http.route('/karmabot/webapp/cards', type='http', auth='public', website=True)
+    @http.route('/karmabot/webapp/cards', type='http', auth='public')
     def user_cards(self, user_id=None, **kw):
         """Страница карт пользователя"""
         try:
@@ -357,7 +357,7 @@ class KarmaBotWebAppController(http.Controller):
             _logger.error(f"Error in user_cards: {e}")
             return request.render('karmabot_webapp.user_cabinet', {'error': 'Ошибка загрузки карт'})
     
-    @http.route('/karmabot/webapp/history', type='http', auth='public', website=True)
+    @http.route('/karmabot/webapp/history', type='http', auth='public', )
     def user_history(self, user_id=None, **kw):
         """Страница истории операций"""
         try:
@@ -385,7 +385,7 @@ class KarmaBotWebAppController(http.Controller):
             _logger.error(f"Error in user_history: {e}")
             return request.render('karmabot_webapp.user_cabinet', {'error': 'Ошибка загрузки истории'})
     
-    @http.route('/karmabot/webapp/bonuses', type='http', auth='public', website=True)
+    @http.route('/karmabot/webapp/bonuses', type='http', auth='public', )
     def user_bonuses(self, user_id=None, **kw):
         """Страница бонусов и скидок"""
         try:
@@ -413,7 +413,7 @@ class KarmaBotWebAppController(http.Controller):
             _logger.error(f"Error in user_bonuses: {e}")
             return request.render('karmabot_webapp.user_cabinet', {'error': 'Ошибка загрузки бонусов'})
     
-    @http.route('/karmabot/webapp/settings', type='http', auth='public', website=True)
+    @http.route('/karmabot/webapp/settings', type='http', auth='public', )
     def user_settings(self, user_id=None, **kw):
         """Страница настроек пользователя"""
         try:
@@ -435,7 +435,7 @@ class KarmaBotWebAppController(http.Controller):
             _logger.error(f"Error in user_settings: {e}")
             return request.render('karmabot_webapp.user_cabinet', {'error': 'Ошибка загрузки настроек'})
     
-    @http.route('/karmabot/webapp/support', type='http', auth='public', website=True)
+    @http.route('/karmabot/webapp/support', type='http', auth='public', )
     def user_support(self, user_id=None, **kw):
         """Страница поддержки"""
         try:
@@ -457,7 +457,7 @@ class KarmaBotWebAppController(http.Controller):
             _logger.error(f"Error in user_support: {e}")
             return request.render('karmabot_webapp.user_cabinet', {'error': 'Ошибка загрузки поддержки'})
     
-    @http.route('/karmabot/webapp/statistics', type='http', auth='public', website=True)
+    @http.route('/karmabot/webapp/statistics', type='http', auth='public', )
     def user_statistics(self, user_id=None, **kw):
         """Страница статистики пользователя"""
         try:
@@ -492,7 +492,7 @@ class KarmaBotWebAppController(http.Controller):
     
     # === КОНТРОЛЛЕРЫ ДЛЯ ПОЛЬЗОВАТЕЛЕЙ (USER) ===
     
-    @http.route('/karmabot/webapp/points', type='http', auth='public', website=True)
+    @http.route('/karmabot/webapp/points', type='http', auth='public', )
     def user_points(self, user_id=None, **kw):
         """Страница баллов пользователя"""
         try:
@@ -514,7 +514,7 @@ class KarmaBotWebAppController(http.Controller):
             _logger.error(f"Error in user_points: {e}")
             return request.render('karmabot_webapp.user_cabinet', {'error': 'Ошибка загрузки баллов'})
     
-    @http.route('/karmabot/webapp/referrals', type='http', auth='public', website=True)
+    @http.route('/karmabot/webapp/referrals', type='http', auth='public', )
     def user_referrals(self, user_id=None, **kw):
         """Страница рефералов пользователя"""
         try:
@@ -538,7 +538,7 @@ class KarmaBotWebAppController(http.Controller):
     
     # === КОНТРОЛЛЕРЫ ДЛЯ ПАРТНЕРОВ (PARTNER) ===
     
-    @http.route('/karmabot/webapp/partner/cards', type='http', auth='public', website=True)
+    @http.route('/karmabot/webapp/partner/cards', type='http', auth='public', )
     def partner_cards(self, user_id=None, **kw):
         """Страница карточек партнера"""
         try:
@@ -566,7 +566,7 @@ class KarmaBotWebAppController(http.Controller):
             _logger.error(f"Error in partner_cards: {e}")
             return request.render('karmabot_webapp.user_cabinet', {'error': 'Ошибка загрузки карточек'})
     
-    @http.route('/karmabot/webapp/partner/analytics', type='http', auth='public', website=True)
+    @http.route('/karmabot/webapp/partner/analytics', type='http', auth='public', )
     def partner_analytics(self, user_id=None, **kw):
         """Страница аналитики партнера"""
         try:
@@ -588,7 +588,7 @@ class KarmaBotWebAppController(http.Controller):
             _logger.error(f"Error in partner_analytics: {e}")
             return request.render('karmabot_webapp.user_cabinet', {'error': 'Ошибка загрузки аналитики'})
     
-    @http.route('/karmabot/webapp/partner/qr', type='http', auth='public', website=True)
+    @http.route('/karmabot/webapp/partner/qr', type='http', auth='public', )
     def partner_qr(self, user_id=None, **kw):
         """Страница QR-кодов партнера"""
         try:
@@ -610,7 +610,7 @@ class KarmaBotWebAppController(http.Controller):
             _logger.error(f"Error in partner_qr: {e}")
             return request.render('karmabot_webapp.user_cabinet', {'error': 'Ошибка загрузки QR-кодов'})
     
-    @http.route('/karmabot/webapp/partner/clients', type='http', auth='public', website=True)
+    @http.route('/karmabot/webapp/partner/clients', type='http', auth='public', )
     def partner_clients(self, user_id=None, **kw):
         """Страница клиентов партнера"""
         try:
@@ -634,7 +634,7 @@ class KarmaBotWebAppController(http.Controller):
     
     # === КОНТРОЛЛЕРЫ ДЛЯ АДМИНОВ (ADMIN) ===
     
-    @http.route('/karmabot/webapp/admin/moderation', type='http', auth='public', website=True)
+    @http.route('/karmabot/webapp/admin/moderation', type='http', auth='public', )
     def admin_moderation(self, user_id=None, **kw):
         """Страница модерации админа"""
         try:
@@ -662,7 +662,7 @@ class KarmaBotWebAppController(http.Controller):
             _logger.error(f"Error in admin_moderation: {e}")
             return request.render('karmabot_webapp.user_cabinet', {'error': 'Ошибка загрузки модерации'})
     
-    @http.route('/karmabot/webapp/admin/users', type='http', auth='public', website=True)
+    @http.route('/karmabot/webapp/admin/users', type='http', auth='public', )
     def admin_users(self, user_id=None, **kw):
         """Страница управления пользователями админа"""
         try:
@@ -688,7 +688,7 @@ class KarmaBotWebAppController(http.Controller):
             _logger.error(f"Error in admin_users: {e}")
             return request.render('karmabot_webapp.user_cabinet', {'error': 'Ошибка загрузки пользователей'})
     
-    @http.route('/karmabot/webapp/admin/analytics', type='http', auth='public', website=True)
+    @http.route('/karmabot/webapp/admin/analytics', type='http', auth='public', )
     def admin_analytics(self, user_id=None, **kw):
         """Страница аналитики админа"""
         try:
@@ -710,7 +710,7 @@ class KarmaBotWebAppController(http.Controller):
             _logger.error(f"Error in admin_analytics: {e}")
             return request.render('karmabot_webapp.user_cabinet', {'error': 'Ошибка загрузки аналитики'})
     
-    @http.route('/karmabot/webapp/admin/notifications', type='http', auth='public', website=True)
+    @http.route('/karmabot/webapp/admin/notifications', type='http', auth='public', )
     def admin_notifications(self, user_id=None, **kw):
         """Страница уведомлений админа"""
         try:
@@ -734,7 +734,7 @@ class KarmaBotWebAppController(http.Controller):
     
     # === КОНТРОЛЛЕРЫ ДЛЯ СУПЕР-АДМИНОВ (SUPER_ADMIN) ===
     
-    @http.route('/karmabot/webapp/superadmin/settings', type='http', auth='public', website=True)
+    @http.route('/karmabot/webapp/superadmin/settings', type='http', auth='public', )
     def superadmin_settings(self, user_id=None, **kw):
         """Страница системных настроек супер-админа"""
         try:
@@ -756,7 +756,7 @@ class KarmaBotWebAppController(http.Controller):
             _logger.error(f"Error in superadmin_settings: {e}")
             return request.render('karmabot_webapp.user_cabinet', {'error': 'Ошибка загрузки настроек'})
     
-    @http.route('/karmabot/webapp/superadmin/modules', type='http', auth='public', website=True)
+    @http.route('/karmabot/webapp/superadmin/modules', type='http', auth='public', )
     def superadmin_modules(self, user_id=None, **kw):
         """Страница управления модулями супер-админа"""
         try:
@@ -778,7 +778,7 @@ class KarmaBotWebAppController(http.Controller):
             _logger.error(f"Error in superadmin_modules: {e}")
             return request.render('karmabot_webapp.user_cabinet', {'error': 'Ошибка загрузки модулей'})
     
-    @http.route('/karmabot/webapp/superadmin/admins', type='http', auth='public', website=True)
+    @http.route('/karmabot/webapp/superadmin/admins', type='http', auth='public', )
     def superadmin_admins(self, user_id=None, **kw):
         """Страница управления админами супер-админа"""
         try:
@@ -806,7 +806,7 @@ class KarmaBotWebAppController(http.Controller):
             _logger.error(f"Error in superadmin_admins: {e}")
             return request.render('karmabot_webapp.user_cabinet', {'error': 'Ошибка загрузки админов'})
     
-    @http.route('/karmabot/webapp/superadmin/security', type='http', auth='public', website=True)
+    @http.route('/karmabot/webapp/superadmin/security', type='http', auth='public', )
     def superadmin_security(self, user_id=None, **kw):
         """Страница безопасности супер-админа"""
         try:

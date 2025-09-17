@@ -12,11 +12,17 @@
     """,
     'author': 'KarmaBot Team',
     'website': 'https://karmabot.com',
-    'depends': ['base', 'web'],
+    'depends': ['base', 'web', 'website'],
     'data': [
         'security/ir.model.access.csv',
         'views/webapp_views.xml',
     ],
+    'assets': {
+        'web.assets_backend': [
+            'karmabot_webapp/static/src/css/webapp.css',
+            'karmabot_webapp/static/src/js/webapp.js',
+        ],
+    },
     'demo': [],
     'installable': True,
     'auto_install': False,
